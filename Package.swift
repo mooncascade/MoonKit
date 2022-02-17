@@ -8,12 +8,14 @@ let package = Package(
         .library(
             name: "MoonKit",
             targets: [
+                "Moonlight",
                 "MoonFoundation",
                 "MoonPresentation"
             ]
         )
     ],
     targets: [
+        .target(name: "Moonlight"),
         .target(name: "MoonFoundation"),
         .target(name: "MoonPresentation")
     ]
