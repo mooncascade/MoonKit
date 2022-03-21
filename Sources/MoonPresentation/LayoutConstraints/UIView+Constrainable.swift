@@ -94,6 +94,14 @@ public extension UIView {
     ) -> [NSLayoutConstraint] {
         edges.map { constrain($0, to: item, constant: insets.adapt(for: $0)) }
     }
+    
+    @discardableResult
+    func constrain(centerTo item: Constrainable) -> [NSLayoutConstraint] {
+        [
+            constraint(.horizontal, to: item),
+            constraint(.vertical, to: item)
+        ]
+    }
 }
 
 private extension NSLayoutConstraint.Edge {
