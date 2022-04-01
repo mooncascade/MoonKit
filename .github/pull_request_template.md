@@ -9,3 +9,4 @@
 - [ ] I have performed a self-review of my own code
 - [ ] I have made corresponding changes to the documentation including README.md
 - [ ] My changes generate no new warnings
+- [ ] My changes generate no breaking changes
