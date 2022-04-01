@@ -1,6 +1,6 @@
 ## Context
 
-<!-- Please provide a short description or a link to documentaion. -->
+<!-- Please provide a short description or a link to documentation. -->
 
 ## Checklist
 
