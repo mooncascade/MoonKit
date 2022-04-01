@@ -5,10 +5,11 @@ public extension UIView {
     @discardableResult
     func constrain(
         _ edges: [NSLayoutConstraint.Edge],
+        _ relate: NSLayoutConstraint.Relation = .equal,
         to item: Constrainable,
         constant: CGFloat = 0
     ) -> [NSLayoutConstraint] {
-        edges.map { constrain($0, to: item, constant: constant.adapt(for: $0)) }
+        edges.map { constrain($0, relate, to: item, constant: constant.adapt(for: $0)) }
     }
 
     @discardableResult
@@ -98,8 +99,8 @@ public extension UIView {
     @discardableResult
     func constrain(centerTo item: Constrainable) -> [NSLayoutConstraint] {
         [
-            constraint(.horizontal, to: item),
-            constraint(.vertical, to: item)
+            constrain(.horizontal, to: item),
+            constrain(.vertical, to: item)
         ]
     }
 }
