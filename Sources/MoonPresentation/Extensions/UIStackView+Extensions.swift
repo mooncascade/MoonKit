@@ -3,7 +3,7 @@ import UIKit
 public extension UIStackView {
 
     func replaceArrangedSubviews(_ views: [UIView]) {
-        subviews.forEach { subview in
+        arrangedSubviews.forEach { subview in
             removeArrangedSubview(subview)
             subview.removeFromSuperview()
         }
