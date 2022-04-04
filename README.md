@@ -221,6 +221,10 @@ import MoonPresentation
 
 ```
 
+## Conventions
+
+- Swift files carrying extension methods should be named in the next format `%Entity%+Extensions.swift`, for example `UIView+Extensions.swift`
+
 ## License
 
 Moonkit is under the [MIT License](LICENSE.md).
