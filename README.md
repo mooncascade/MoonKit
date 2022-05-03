@@ -143,13 +143,13 @@ final class ViewController: UIViewController {
         setup()
     }
 
-    func bind(state: AnyPublisher<SceneState, Never>) -> [AnyPublisher<SceneEvent, Never>] {
+    func bind(state: AnyPublisher<SceneState, Never>) -> AnyPublisher<SceneEvent, Never> {
         state
             .print("bind")
             .sink(receiveValue: { [label] in label.text = $0.history.joined(separator: "\n") })
             .store(in: &subscriptions)
         
-        return [eventSubject.eraseToAnyPublisher()]
+        return eventSubject.eraseToAnyPublisher()
     }
     
     private func setup() {
