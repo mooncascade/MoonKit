@@ -1,6 +1,6 @@
 import UIKit
 
-public extension UIView {
+public extension UILayoutGuide {
 
     @discardableResult
     func constrain(
@@ -21,7 +21,6 @@ public extension UIView {
         multiplier: CGFloat = 1,
         constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        translatesAutoresizingMaskIntoConstraints = false
         let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: edge.asAttribute,
@@ -44,7 +43,6 @@ public extension UIView {
         multiplier: CGFloat = 1,
         constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        translatesAutoresizingMaskIntoConstraints = false
         let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: dimension.asAttribute,
@@ -73,7 +71,6 @@ public extension UIView {
         multiplier: CGFloat = 1,
         constant: CGFloat = 0
     ) -> NSLayoutConstraint {
-        translatesAutoresizingMaskIntoConstraints = false
         let constraint = NSLayoutConstraint(
             item: self,
             attribute: axis.asAttribute,
@@ -95,82 +92,12 @@ public extension UIView {
     ) -> [NSLayoutConstraint] {
         edges.map { constrain($0, to: item, constant: insets.adapt(for: $0)) }
     }
-    
+
     @discardableResult
     func constrain(centerTo item: Constrainable) -> [NSLayoutConstraint] {
         [
             constrain(.horizontal, to: item),
             constrain(.vertical, to: item)
         ]
-    }
-}
-
-internal extension NSLayoutConstraint.Edge {
-
-    var asAttribute: NSLayoutConstraint.Attribute {
-        switch self {
-        case .top:
-            return .top
-        case .left:
-            return .leading
-        case .right:
-            return .trailing
-        case .bottom:
-            return .bottom
-        }
-    }
-}
-
-internal extension NSLayoutConstraint.Dimension {
-
-    var asAttribute: NSLayoutConstraint.Attribute {
-        switch self {
-        case .height:
-            return .height
-        case .width:
-            return .width
-        }
-    }
-}
-
-internal extension NSLayoutConstraint.Axis {
-
-    var asAttribute: NSLayoutConstraint.Attribute {
-        switch self {
-        case .horizontal:
-            return .centerX
-        case .vertical:
-            return .centerY
-        @unknown default:
-            fatalError("Unknown NSLayoutConstraint.Attribute")
-        }
-    }
-}
-
-internal extension CGFloat {
-
-    func adapt(for edge: NSLayoutConstraint.Edge) -> CGFloat {
-        switch edge {
-        case .top, .left:
-            return self
-        case .right, .bottom:
-            return -self
-        }
-    }
-}
-
-internal extension UIEdgeInsets {
-
-    func adapt(for edge: NSLayoutConstraint.Edge) -> CGFloat {
-        switch edge {
-        case .top:
-            return top
-        case .left:
-            return left
-        case .right:
-            return -right
-        case .bottom:
-            return -bottom
-        }
     }
 }
