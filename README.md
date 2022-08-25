@@ -59,6 +59,22 @@ public enum Scene {
         
         window.rootViewController = vc
         window.makeKeyAndVisible()
+        
+        /*
+        Moonlight also has an alternative usage that can be more convenient if you want to return some value from a child scene:
+        
+        return Moonlight.start(
+            initialState: SceneState(),
+            environment: env,
+            feedback: vc.bind,
+            transform: SceneReducer.transform,
+            apply: SceneReducer.apply,
+            store: vc.store
+        )
+        .compactMap(\.result)
+        .handleEvents(receiveOutput: { [vc] _ in vc.dismiss(animated: true) })
+        .eraseToAnyPublisher()
+        */
     }
 }
 
