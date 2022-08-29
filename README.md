@@ -34,7 +34,8 @@ import Combine
 import Moonlight
 import UIKit
 
-public enum Scene {
+// If the Scene isn't supposed to return a value
+public enum ParentScene {
     
     public static func create(
         in window: UIWindow,
@@ -61,6 +62,37 @@ public enum Scene {
         window.makeKeyAndVisible()
     }
 }
+
+// If the Scene is supposed to return some value.
+public enum ChildScene {
+    
+    public static func create(
+        in window: UIWindow,
+        dependency1: @escaping () -> AnyPublisher<Int, Never>,
+        dependency2: @escaping () -> AnyPublisher<String, Never>
+    ) {
+
+        let env = SceneEnvironment(
+            dependency1: dependency1,
+            dependency2: dependency2
+        )
+        
+        let vc = ViewController()
+        
+        return Moonlight.start(
+            initialState: SceneState(),
+            environment: env,
+            feedback: vc.bind,
+            transform: SceneReducer.transform,
+            apply: SceneReducer.apply,
+            store: vc.store
+        )
+        .compactMap(\.result)
+        .handleEvents(receiveOutput: { [vc] _ in vc.dismiss(animated: true) })
+        .eraseToAnyPublisher()
+    }
+}
+
 
 // MARK: Reducer
 
