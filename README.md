@@ -59,7 +59,7 @@ public enum ParentScene {
         ).store(in: &vc.subscriptions)
         
         window.rootViewController = vc
-        window.makeKeyAndVisible()        
+        window.makeKeyAndVisible()
     }
 }
 
