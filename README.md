@@ -34,7 +34,8 @@ import Combine
 import Moonlight
 import UIKit
 
-public enum Scene {
+// If the Scene isn't supposed to return a value
+public enum ParentScene {
     
     public static func create(
         in window: UIWindow,
@@ -58,11 +59,25 @@ public enum Scene {
         ).store(in: &vc.subscriptions)
         
         window.rootViewController = vc
-        window.makeKeyAndVisible()
+        window.makeKeyAndVisible()        
+    }
+}
+
+// If the Scene is supposed to return some value.
+public enum ChildScene {
+    
+    public static func create(
+        in window: UIWindow,
+        dependency1: @escaping () -> AnyPublisher<Int, Never>,
+        dependency2: @escaping () -> AnyPublisher<String, Never>
+    ) {
+
+        let env = SceneEnvironment(
+            dependency1: dependency1,
+            dependency2: dependency2
+        )
         
-        /*
-        Moonlight also has an alternative usage that can be more convenient
-        if you want to return some value from a child scene:
+        let vc = ViewController()
         
         return Moonlight.start(
             initialState: SceneState(),
@@ -75,9 +90,9 @@ public enum Scene {
         .compactMap(\.result)
         .handleEvents(receiveOutput: { [vc] _ in vc.dismiss(animated: true) })
         .eraseToAnyPublisher()
-        */
     }
 }
+
 
 // MARK: Reducer
 
