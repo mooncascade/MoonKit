@@ -61,7 +61,8 @@ public enum Scene {
         window.makeKeyAndVisible()
         
         /*
-        Moonlight also has an alternative usage that can be more convenient if you want to return some value from a child scene:
+        Moonlight also has an alternative usage that can be more convenient
+        if you want to return some value from a child scene:
         
         return Moonlight.start(
             initialState: SceneState(),
