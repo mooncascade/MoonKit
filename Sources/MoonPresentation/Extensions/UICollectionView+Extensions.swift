@@ -7,6 +7,7 @@ public extension UICollectionView {
     }
 
     func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
+        // swiftlint:disable:next force_cast
         dequeueReusableCell(withReuseIdentifier: T.cellIdentifier, for: indexPath) as! T
     }
 
@@ -19,6 +20,7 @@ public extension UICollectionView {
     }
 
     func dequeueReusableView<T: UICollectionReusableView>(ofKind: String, for indexPath: IndexPath) -> T {
+        // swiftlint:disable:next force_cast
         dequeueReusableSupplementaryView(
             ofKind: ofKind,
             withReuseIdentifier: T.reuseIdentifier,
