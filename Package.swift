@@ -9,6 +9,7 @@ let package = Package(
             name: "MoonKit",
             targets: [
                 "Moonlight",
+                "MoonlightTests",
                 "MoonFoundation",
                 "MoonPresentation"
             ]
