@@ -27,6 +27,7 @@ public extension MoonlightTestCase {
         
         transform(initialState, event, environment)
             .map { [unowned self] in self.apply(initialState, $0) }
+            .last()
             .sink(receiveValue: { newState in
                 completed.fulfill()
                 XCTAssertEqual(newState, expectedState)
@@ -51,6 +52,7 @@ public extension MoonlightTestCase {
                 }
                 .eraseToAnyPublisher()
             }
+            .last()
             .sink(receiveValue: { newState in
                 completed.fulfill()
                 XCTAssertEqual(newState, expectedState)
