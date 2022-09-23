@@ -23,17 +23,11 @@ public extension MoonlightTestCase {
         initialState: State,
         expectedState: State
     ) {
-        let completed = expectation(description: String(describing: Self.self))
-        
-        transform(initialState, event, environment)
-            .map { [unowned self] in self.apply(initialState, $0) }
-            .sink(receiveValue: { newState in
-                completed.fulfill()
-                XCTAssertEqual(newState, expectedState)
-            })
-            .store(in: &cancellables)
-        
-        waitForExpectations(timeout: 1)
+        TestMoonlight(
+            events: [event],
+            initialState: initialState,
+            expectedState: expectedState
+        )
     }
     
     func TestMoonlight(
@@ -51,6 +45,7 @@ public extension MoonlightTestCase {
                 }
                 .eraseToAnyPublisher()
             }
+            .last()
             .sink(receiveValue: { newState in
                 completed.fulfill()
                 XCTAssertEqual(newState, expectedState)
