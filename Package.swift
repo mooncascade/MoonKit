@@ -6,10 +6,15 @@ let package = Package(
     platforms: [.iOS(.v13)],
     products: [
         .library(
+            name: "MoonKitTests",
+            targets: [
+                "MoonlightTests"
+            ]
+        ),
+        .library(
             name: "MoonKit",
             targets: [
                 "Moonlight",
-                "MoonlightTests",
                 "MoonFoundation",
                 "MoonPresentation"
             ]
