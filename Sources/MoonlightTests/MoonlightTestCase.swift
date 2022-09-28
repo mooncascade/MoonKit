@@ -19,19 +19,19 @@ public protocol MoonlightTestCase: XCTestCase where State: Equatable  {
 }
 
 public extension MoonlightTestCase {
-    func TestMoonlight(
+    func testMoonlight(
         event: Event,
         initialState: State,
         expectedState: State
     ) {
-        TestMoonlight(
+        testMoonlight(
             events: [event],
             initialState: initialState,
             expectedState: expectedState
         )
     }
     
-    func TestMoonlight(
+    func testMoonlight(
         events: [Event],
         initialState: State,
         expectedState: State
