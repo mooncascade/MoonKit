@@ -1,4 +1,5 @@
 import Combine
+import Moonlight
 import XCTest
 
 public protocol MoonlightTestCase: XCTestCase where State: Equatable  {
@@ -37,15 +38,15 @@ public extension MoonlightTestCase {
     ) {
         let completed = expectation(description: String(describing: Self.self))
 
-        events.reduce(Just(initialState).eraseToAnyPublisher()) { newState, newEvent in
-            newState
-                .flatMap { [unowned self] state in
-                    self.transform(state, newEvent, self.environment)
-                        .map { self.apply(state, $0) }
-                }
-                .eraseToAnyPublisher()
-            }
-            .last()
+        Moonlight.start(
+            initialState: initialState,
+            environment: environment,
+            feedback: { _ in events.publisher.eraseToAnyPublisher() },
+            transform: transform,
+            apply: apply,
+            store: { cancellables.update(with: $0) }
+        )
+            .first()
             .sink(receiveValue: { newState in
                 completed.fulfill()
                 XCTAssertEqual(newState, expectedState)
