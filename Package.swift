@@ -12,7 +12,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "Moonlight"),
-        .target(name: "MoonlightTests"),
+        .target(name: "MoonlightTests", dependencies: ["Moonlight"]),
         .target(name: "MoonFoundation"),
         .target(name: "MoonPresentation")
     ]
